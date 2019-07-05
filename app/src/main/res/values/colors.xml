@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#18243e</color>
+    <color name="colorPrimaryDark">#18243E</color>
+    <color name="colorAccent">#fff</color>
+    <color name="White">#ffffff</color>
+    <color name="white">#ffffff</color>
+    <color name="red">#da3737</color>
+    <color name="darkO">#feaa00</color>
+    <color name="error_stroke_color">#feaa00</color>
+</resources>
