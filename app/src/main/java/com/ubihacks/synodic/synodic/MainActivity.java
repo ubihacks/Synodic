@@ -10,6 +10,7 @@ import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.ubihacks.synodic.synodic.Fragments.BaseFragment;
 import com.ubihacks.synodic.synodic.Fragments.Home;
+import com.ubihacks.synodic.synodic.Fragments.Status;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         AHBottomNavigation bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
 
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Status",R.drawable.ic_mail_outline);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Status",R.drawable.ic_status);
         AHBottomNavigationItem item2 = new AHBottomNavigationItem("Graphs", R.drawable.ic_mail_outline);
         AHBottomNavigationItem item3 = new AHBottomNavigationItem("Logs", R.drawable.ic_mail_outline);
         AHBottomNavigationItem item4 = new AHBottomNavigationItem("Setting", R.drawable.ic_mail_outline);
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
                 getSupportFragmentManager().beginTransaction().remove(currentFragment).commit();
                 if (position == 0) {
-                    currentFragment = new Home();
+                    currentFragment = new Status();
                 }
                 if (position == 1) {
                     currentFragment = new Home();
