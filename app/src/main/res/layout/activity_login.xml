@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/White"
     tools:context="com.ubihacks.synodic.synodic.Login">
 
 
@@ -38,7 +38,7 @@
                 android:elevation="10dp"
                 android:scaleType="fitCenter"
                 android:transitionName="LOGO"
-                app:srcCompat="@drawable/logo"
+                app:srcCompat="@drawable/synodic_logo"
                 tools:ignore="VectorDrawableCompat" />
 
             <TextView
@@ -60,8 +60,8 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
-                android:backgroundTint="@android:color/white"
-                android:textColorHint="@android:color/white"
+                android:backgroundTint="@color/colorPrimary"
+                android:textColorHint="@color/colorPrimary"
                 android:theme="@style/InputLabel">
 
                 <android.support.design.widget.TextInputEditText
@@ -118,7 +118,7 @@
                 android:layout_marginRight="25dp"
                 android:layout_marginTop="4dp"
                 android:text="Remind Password"
-                android:textColor="@color/white"
+                android:textColor="@color/colorPrimary"
                 android:textSize="10sp"
                 android:theme="@style/checkBoxStyle" />
 
