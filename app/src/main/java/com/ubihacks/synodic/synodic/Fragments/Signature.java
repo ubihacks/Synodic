@@ -1,4 +1,4 @@
-package com.ubihacks.synodic.synodic;
+package com.ubihacks.synodic.synodic.Fragments;
 
 
 import android.os.Bundle;
@@ -7,11 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ubihacks.synodic.synodic.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Signature extends Fragment {
+public class Signature extends BaseFragment {
 
 
     public Signature() {

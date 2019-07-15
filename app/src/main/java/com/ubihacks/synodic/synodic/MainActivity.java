@@ -19,6 +19,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.ubihacks.synodic.synodic.Fragments.BaseFragment;
 import com.ubihacks.synodic.synodic.Fragments.Home;
+import com.ubihacks.synodic.synodic.Fragments.Signature;
 import com.ubihacks.synodic.synodic.Fragments.Status;
 
 public class MainActivity extends AppCompatActivity {
@@ -139,8 +140,8 @@ public class MainActivity extends AppCompatActivity {
                 if (position == 1) {
                     currentFragment = new Home();
                 }
-                if (position == 2) {
-                    currentFragment = new Home();
+                if (position == 4) {
+                    currentFragment = new Signature();
                 }
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.crossfade_content, currentFragment).commit();
