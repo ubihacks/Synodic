@@ -24,7 +24,7 @@
                 android:padding="5dp">
 
                 <TextView
-                    android:id="@+id/textView9"
+                    android:id="@+id/txtDate"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
@@ -36,7 +36,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/txtConnectionStatus"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
@@ -47,7 +47,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView7"
+                    android:id="@+id/txtTime"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
@@ -69,7 +69,7 @@
                 android:padding="5dp">
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/txtConnectionStatus"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
@@ -86,12 +86,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 android:weightSum="4">
 
                 <Button
-                    android:id="@+id/sleep3"
+                    android:id="@+id/btnSleep"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_margin="5dp"
@@ -102,14 +102,14 @@
                     android:textColor="@color/White" />
 
                 <Button
-                    android:id="@+id/sleep2"
+                    android:id="@+id/btnOnDuty"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_margin="5dp"
                     android:layout_weight="2"
                     android:background="@drawable/button"
                     android:padding="10dp"
-                    android:text="sleep"
+                    android:text="On Duty"
                     android:textColor="@color/White" />
 
             </LinearLayout>
@@ -118,30 +118,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 android:weightSum="4">
 
                 <Button
-                    android:id="@+id/sleep5"
+                    android:id="@+id/btnOffDuty"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_margin="5dp"
                     android:layout_weight="2"
                     android:background="@drawable/button"
                     android:padding="10dp"
-                    android:text="sleep"
+                    android:text="Off Duty"
                     android:textColor="@color/White" />
 
                 <Button
-                    android:id="@+id/sleep4"
+                    android:id="@+id/btnDriving"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_margin="5dp"
                     android:layout_weight="2"
                     android:background="@drawable/button"
                     android:padding="10dp"
-                    android:text="sleep"
+                    android:text="Driving"
                     android:textColor="@color/White" />
             </LinearLayout>
 
@@ -149,14 +149,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical"
                 android:weightSum="4">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="40dp"
+                    android:layout_margin="10dp"
                     android:orientation="horizontal"
                     android:weightSum="2">
 
@@ -166,19 +166,21 @@
                         android:layout_weight="1">
 
                         <android.support.design.widget.TextInputEditText
+                            android:id="@+id/txtLocation"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="hint" />
+                            android:hint="Location"
+                            android:textColorHint="#000000" />
                     </android.support.design.widget.TextInputLayout>
 
                     <Button
                         android:id="@+id/sleep6"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
+                        android:layout_margin="2dp"
                         android:layout_weight="1"
                         android:background="@drawable/button"
-                        android:padding="10dp"
+                        android:padding="5dp"
                         android:text="Location"
                         android:textColor="@color/White" />
 
@@ -187,44 +189,47 @@
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="40dp"
+                    android:layout_margin="10dp"
                     android:layout_weight="1">
 
                     <android.support.design.widget.TextInputEditText
+                        android:id="@+id/txtComment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="hint" />
+                        android:hint="Comment"
+                        android:textColorHint="#000000" />
                 </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 android:weightSum="4">
 
                 <Button
-                    android:id="@+id/sleep5"
+                    android:id="@+id/btnSubmit"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="2"
                     android:background="@color/md_green_400"
                     android:padding="10dp"
-                    android:text="yes "
+                    android:text="Submit"
                     android:textColor="@color/White" />
 
                 <Button
-                    android:id="@+id/sleep4"
+                    android:id="@+id/btnCancel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="2"
                     android:background="@drawable/notification_background"
                     android:padding="10dp"
-                    android:text="No "
+                    android:text="@string/dialog_cancel"
                     android:textColor="@color/White" />
             </LinearLayout>
 

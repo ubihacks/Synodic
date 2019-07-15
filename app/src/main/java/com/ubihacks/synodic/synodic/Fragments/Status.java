@@ -60,13 +60,13 @@ public class Status extends BaseFragment {
 
 
     private void initView(View view) {
-        textView9 = (TextView) view.findViewById(R.id.textView9);
-        textView8 = (TextView) view.findViewById(R.id.textView8);
-        textView7 = (TextView) view.findViewById(R.id.textView7);
+        textView9 = (TextView) view.findViewById(R.id.txtDate);
+        textView8 = (TextView) view.findViewById(R.id.txtConnectionStatus);
+        textView7 = (TextView) view.findViewById(R.id.txtTime);
         timeSleep = (TextView) view.findViewById(R.id.timeSleep);
-        sleep = (Button) view.findViewById(R.id.sleep);
-        driveTime = (TextView) view.findViewById(R.id.driveTime);
+        sleep = (Button) view.findViewById(R.id.btnSleep);
+        driveTime = (TextView) view.findViewById(R.id.shiftTime);
         chart1 = (BarChart) view.findViewById(R.id.activityChart);
-        drive = (Button) view.findViewById(R.id.drive);
+        drive = (Button) view.findViewById(R.id.btnDrive);
     }
 }
