@@ -73,11 +73,11 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:padding="30dp"
+                    android:padding="15dp"
                     android:text="Current Status"
                     android:textAlignment="center"
                     android:textColor="@color/White"
-                    android:textSize="40sp" />
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
@@ -85,7 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 android:weightSum="4">
 
@@ -227,10 +227,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/button"
                 android:orientation="horizontal"
                 android:padding="10dp"
@@ -376,13 +376,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="296dp"
                 android:orientation="vertical">
 
                 <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/chart1"
+                    android:id="@+id/activityChart"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_above="@+id/seekBar1" />
             </LinearLayout>
 
