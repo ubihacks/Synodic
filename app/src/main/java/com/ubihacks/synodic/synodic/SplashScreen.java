@@ -42,7 +42,7 @@ public class SplashScreen extends AppCompatActivity {
     private void initView() {
 
         splashIcon = (ImageView) findViewById(R.id.splashIcon);
-       // splashText = (TextView) findViewById(R.id.splashText);
+        //splashText = (TextView) findViewById(R.id.splashText);
 
 
     }

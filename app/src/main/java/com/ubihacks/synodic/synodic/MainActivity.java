@@ -104,11 +104,11 @@ public class MainActivity extends AppCompatActivity {
 
         AHBottomNavigation bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
 
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Logs", R.drawable.ic_status);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem("Graphs", R.drawable.ic_status);
-        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Profile", R.drawable.ic_mail_outline);
-        AHBottomNavigationItem item4 = new AHBottomNavigationItem("VIR", R.drawable.ic_mail_outline);
-        AHBottomNavigationItem item5 = new AHBottomNavigationItem("Signature", R.drawable.ic_mail_outline);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem("Logs", R.drawable.ic_logs);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem("Graphs", R.drawable.ic_graph);
+        AHBottomNavigationItem item3 = new AHBottomNavigationItem("Profile", R.drawable.ic_profile);
+        AHBottomNavigationItem item4 = new AHBottomNavigationItem("VIR", R.drawable.ic_vir);
+        AHBottomNavigationItem item5 = new AHBottomNavigationItem("Signature", R.drawable.ic_sign);
 
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
