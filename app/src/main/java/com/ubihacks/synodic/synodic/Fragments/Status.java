@@ -12,17 +12,22 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.ubihacks.synodic.synodic.R;
 import com.ubihacks.synodic.synodic.StatusChagedActivity;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class Status extends BaseFragment {
 
 
-    private TextView textView9;
-    private TextView textView8;
-    private TextView textView7;
-    private TextView timeSleep;
-    private Button sleep;
     private TextView driveTime;
-    private BarChart chart1;
+    private BarChart activityChart;
+
+    private Button sleep;
     private Button drive;
+    private Button onDuty;
+    private Button offDuty;
+    private TextView textSleepTime;
+    private TextView textTime;
+    private TextView textConnectionStatus;
+    private TextView textDate;
 
     public Status() {
         // Required empty public constructor
@@ -45,28 +50,44 @@ public class Status extends BaseFragment {
 
             }
         });
-
+        onDuty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), StatusChagedActivity.class));
+            }
+        });
+        offDuty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), StatusChagedActivity.class));
+            }
+        });
         drive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Vehicle motion is detected")
+                        .setContentText("Do you want to change driver status to DRIVING?")
+                        .setConfirmText("Yes")
+                        .setCancelText("No")
+                        .show();
             }
         });
-
-
         return view;
 
     }
 
 
     private void initView(View view) {
-        textView9 = (TextView) view.findViewById(R.id.txtDate);
-        textView8 = (TextView) view.findViewById(R.id.txtConnectionStatus);
-        textView7 = (TextView) view.findViewById(R.id.txtTime);
-        timeSleep = (TextView) view.findViewById(R.id.timeSleep);
+        textDate = (TextView) view.findViewById(R.id.txtDate);
+        textConnectionStatus = (TextView) view.findViewById(R.id.txtConnectionStatus);
+        textTime = (TextView) view.findViewById(R.id.txtTime);
+        textSleepTime = (TextView) view.findViewById(R.id.timeSleep);
         sleep = (Button) view.findViewById(R.id.btnSleep);
         driveTime = (TextView) view.findViewById(R.id.shiftTime);
-        chart1 = (BarChart) view.findViewById(R.id.activityChart);
+        activityChart = (BarChart) view.findViewById(R.id.activityChart);
         drive = (Button) view.findViewById(R.id.btnDrive);
+        offDuty = (Button) view.findViewById(R.id.btnOffDuty);
+        onDuty = (Button) view.findViewById(R.id.btnOnDuty);
     }
 }
