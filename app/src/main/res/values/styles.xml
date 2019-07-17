@@ -23,7 +23,7 @@
 
     <style name="EditTextStyle" parent="Theme.AppCompat.Light">
         <item name="android:background">@drawable/border_stock</item>
-        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/error_stroke_color</item>
         <item name="colorControlActivated">@color/error_stroke_color</item>
         <item name="colorControlHighlight">@color/error_stroke_color</item>
     </style>
