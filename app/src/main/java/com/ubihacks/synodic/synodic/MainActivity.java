@@ -3,7 +3,6 @@ package com.ubihacks.synodic.synodic;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -22,7 +21,6 @@ import com.ubihacks.synodic.synodic.Fragments.BaseFragment;
 import com.ubihacks.synodic.synodic.Fragments.Home;
 import com.ubihacks.synodic.synodic.Fragments.Signature;
 import com.ubihacks.synodic.synodic.Fragments.Status;
-import com.ubihacks.synodic.synodic.R;
 
 public class MainActivity extends BaseActivity {
 

@@ -10,7 +10,7 @@ import com.ubihacks.synodic.synodic.MODEL.User;
 
 
 /**
- * Created by Ubaid on 4/10/2018.
+ * Created by Atiq on 4/10/2018.
  */
 public class MyApp extends Application {
     private static MyApp instance;

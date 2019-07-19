@@ -1,7 +1,6 @@
 package com.ubihacks.synodic.synodic.API;
 
 
-
 import com.ubihacks.synodic.synodic.MODEL.Device;
 import com.ubihacks.synodic.synodic.MyApp;
 

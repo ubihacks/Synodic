@@ -18,6 +18,10 @@ import android.widget.Button;
 import com.ubihacks.synodic.synodic.R;
 
 
+/**
+ * Created by Atiq on 8/12/2017.
+ */
+
 public class NetworkUtils {
     private Button networkSetting;
     private Button exitApp;

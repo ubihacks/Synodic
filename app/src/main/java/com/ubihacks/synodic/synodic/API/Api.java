@@ -1,8 +1,4 @@
 package com.ubihacks.synodic.synodic.API;
-
-
-
-import com.ubihacks.synodic.synodic.MODEL.Command;
 import com.ubihacks.synodic.synodic.MODEL.Device;
 import com.ubihacks.synodic.synodic.MODEL.Position;
 import com.ubihacks.synodic.synodic.MODEL.Stop;
@@ -58,8 +54,6 @@ public interface Api {
     @GET("reports/stops")
     Call<List<Stop>> getStops(@Query("from") String from, @Query("to") String to, @Query("deviceId") int id); //@Query("deviceId") int id, @Query("from") String from, @Query("to") String to);
 
-    @POST("commands/send")
-    Call<Command> sendCommand(@Body Command command);
 
 }
 

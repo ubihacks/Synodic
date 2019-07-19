@@ -1,8 +1,6 @@
 package com.ubihacks.synodic.synodic.API;
 
 import android.preference.PreferenceManager;
-
-
 import com.ubihacks.synodic.synodic.MyApp;
 
 import java.util.HashSet;

@@ -14,6 +14,7 @@ import com.ubihacks.synodic.synodic.API.Api;
 import com.ubihacks.synodic.synodic.API.DataReceived;
 import com.ubihacks.synodic.synodic.MODEL.User;
 import com.ubihacks.synodic.synodic.utils.NetworkUtils;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -33,25 +34,14 @@ public class SplashScreen extends BaseActivity {
     protected Context context;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
         initView();
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.fade);
-        splashIcon.setAnimation(animation);
-    }
-
-    private void initView() {
-
-        splashIcon = (ImageView) findViewById(R.id.splashIcon);
-        //splashText = (TextView) findViewById(R.id.splashText);
-
 
     }
-
 
     @Override
     protected void onResume() {
@@ -92,7 +82,7 @@ public class SplashScreen extends BaseActivity {
                 new Timer().schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        startActivity(new Intent(context, MainActivity.class));
+                        startActivity(new Intent(context,MainActivity.class));
                         overridePendingTransition(R.anim.downtoup,R.anim.uptodown);
                         finish();
                     }
@@ -108,10 +98,19 @@ public class SplashScreen extends BaseActivity {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashScreen.this, Login.class));
+                startActivity(new Intent(SplashScreen.this,Login.class));
                 finish();
             }
         },1300);
+    }
+
+
+    private void initView() {
+
+        splashIcon = (ImageView) findViewById(R.id.splashIcon);
+        //splashText = (TextView) findViewById(R.id.splashText);
+
+
     }
 
 
