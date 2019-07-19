@@ -17,12 +17,14 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.ubihacks.synodic.synodic.ACTIVITIES.BaseActivity;
 import com.ubihacks.synodic.synodic.Fragments.BaseFragment;
 import com.ubihacks.synodic.synodic.Fragments.Home;
 import com.ubihacks.synodic.synodic.Fragments.Signature;
 import com.ubihacks.synodic.synodic.Fragments.Status;
+import com.ubihacks.synodic.synodic.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     public static BaseFragment currentFragment;
     Drawer result;
