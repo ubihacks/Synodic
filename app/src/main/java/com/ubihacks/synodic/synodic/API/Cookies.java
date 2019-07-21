@@ -17,8 +17,8 @@ public abstract class Cookies {
     public static void addCookies(HashSet<String> cookies){
         PreferenceManager.getDefaultSharedPreferences(MyApp.getContext()).edit().putStringSet(COOKIES,cookies).apply();
     }
-    public static HashSet<String> getCookies() {
-        return (HashSet) PreferenceManager.getDefaultSharedPreferences(MyApp.getContext()).getStringSet(COOKIES,null);
+    public static HashSet getCookies() {
+        return (HashSet) PreferenceManager.getDefaultSharedPreferences(MyApp.getContext().getApplicationContext()).getStringSet(COOKIES,null);
     }
 
     public static boolean cookiesExist(){
