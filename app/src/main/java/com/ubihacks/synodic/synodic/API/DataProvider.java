@@ -18,8 +18,9 @@ import retrofit2.Response;
 public class DataProvider {
 
     public List<Device> devicesList;
+    public Device selectedDevice;
 
-    public  void initializeDevices(final DataReceived dataReceived) {
+    public void initializeDevices(final DataReceived dataReceived) {
 
         Api api = MyApp.getApi();
 
@@ -29,9 +30,12 @@ public class DataProvider {
             @Override
             public void onResponse(Call<List<Device>> call, Response<List<Device>> response) {
                 devicesList = response.body();
+                selectedDevice = devicesList.get(0);
                 dataReceived.Success();
                 // Send event here
             }
+
+
             @Override
             public void onFailure(Call<List<Device>> call, Throwable t) {
                 devicesList = null;

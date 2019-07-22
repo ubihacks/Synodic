@@ -30,6 +30,8 @@ public class MainActivity extends BaseActivity {
     private FrameLayout crossfadeContent;
     private AHBottomNavigation bottomNavigation;
 
+    public static String currentStatus = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +43,16 @@ public class MainActivity extends BaseActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.crossfade_content, currentFragment).commit();
         bottomNavigation(savedInstanceState);
         loadDrawer(savedInstanceState);
+    }
 
+    public static void setCurrentStatus(String status)
+    {
+        currentStatus = status;
+    }
 
+    public static String getCurrentStatus()
+    {
+        return currentStatus;
     }
 
 

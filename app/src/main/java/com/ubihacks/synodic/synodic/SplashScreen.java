@@ -87,8 +87,6 @@ public class SplashScreen extends BaseActivity {
                         finish();
                     }
                 },1300);
-
-
             }
         });
 

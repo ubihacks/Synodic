@@ -1,10 +1,12 @@
 package com.ubihacks.synodic.synodic.API;
 import com.ubihacks.synodic.synodic.MODEL.Device;
+import com.ubihacks.synodic.synodic.MODEL.DriverStatus;
 import com.ubihacks.synodic.synodic.MODEL.Position;
 import com.ubihacks.synodic.synodic.MODEL.Stop;
 import com.ubihacks.synodic.synodic.MODEL.Trip;
 import com.ubihacks.synodic.synodic.MODEL.User;
 
+import java.sql.Driver;
 import java.util.List;
 
 import retrofit2.Call;
@@ -22,7 +24,6 @@ import retrofit2.http.Query;
 
 public interface Api {
 
-
     // login
     @FormUrlEncoded
     @POST("session")
@@ -32,18 +33,25 @@ public interface Api {
     @GET("session")
     Call<User> session(@Query("token") String token);
 
-
     @GET("devices")
     Call<List<Device>> getDevices();
 
     @GET("positions")
     Call<List<Position>> getCurrentPositionsForAll();
 
-
     //2018-03-01T18:30:00Z   Sample Date formate
 
     @GET("positions")
     Call<List<Position>> getPastPositions(@Query("deviceId") int id, @Query("from") String from, @Query("to") String to);
+
+    @POST("driverstatus")
+    Call<DriverStatus> setDriverStatus(@Body DriverStatus status);
+
+    @GET("driverstatus")
+    Call<DriverStatus> getCurrentDriverStatus(@Query("deviceId") int id);
+
+    @GET("driverstatus")
+    Call<List<DriverStatus>> getDriverStatus(@Query("deviceId") int id, @Query("from") String from, @Query("to") String to);
 
     @GET("positions")
     Call<List<Position>> getCurrentPosition(@Query("id") int id);
@@ -53,8 +61,6 @@ public interface Api {
 
     @GET("reports/stops")
     Call<List<Stop>> getStops(@Query("from") String from, @Query("to") String to, @Query("deviceId") int id); //@Query("deviceId") int id, @Query("from") String from, @Query("to") String to);
-
-
 }
 
 

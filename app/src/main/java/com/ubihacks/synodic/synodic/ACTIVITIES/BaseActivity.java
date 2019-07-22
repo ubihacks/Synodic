@@ -24,6 +24,7 @@ public class BaseActivity extends AppCompatActivity {
     protected Api api;
     protected Context context;
     Snackbar snackbar;
+    public static Context UIUpdateContext;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

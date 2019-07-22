@@ -35,7 +35,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txtConnectionStatus"
+                    android:id="@+id/txtNetworkStatus"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
@@ -135,7 +135,7 @@
                         app:cardBackgroundColor="@color/White">
 
                         <TextView
-                            android:id="@+id/timeSleep"
+                            android:id="@+id/timeDriving"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
@@ -145,7 +145,7 @@
                     </android.support.v7.widget.CardView>
 
                     <Button
-                        android:id="@+id/btnDrive"
+                        android:id="@+id/btnDriving"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
@@ -168,7 +168,7 @@
                         app:cardBackgroundColor="@color/White">
 
                         <TextView
-                            android:id="@+id/timeSleep"
+                            android:id="@+id/timeOnDuty"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
@@ -201,7 +201,7 @@
                         app:cardBackgroundColor="@color/White">
 
                         <TextView
-                            android:id="@+id/timeSleep"
+                            android:id="@+id/timeOffDuty"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center"
@@ -379,11 +379,6 @@
                 android:layout_height="296dp"
                 android:orientation="vertical">
 
-                <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/activityChart"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_above="@+id/seekBar1" />
             </LinearLayout>
 
         </LinearLayout>
