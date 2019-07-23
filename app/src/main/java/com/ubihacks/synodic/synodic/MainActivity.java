@@ -1,5 +1,6 @@
 package com.ubihacks.synodic.synodic;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -17,10 +19,19 @@ import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.ubihacks.synodic.synodic.ACTIVITIES.BaseActivity;
+import com.ubihacks.synodic.synodic.ACTIVITIES.Login;
 import com.ubihacks.synodic.synodic.Fragments.BaseFragment;
 import com.ubihacks.synodic.synodic.Fragments.Home;
 import com.ubihacks.synodic.synodic.Fragments.Signature;
 import com.ubihacks.synodic.synodic.Fragments.Status;
+import com.ubihacks.synodic.synodic.MODEL.User;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.ubihacks.synodic.synodic.utils.CONSTANTS.KEY_LOGGED;
+import static com.ubihacks.synodic.synodic.utils.CONSTANTS.KEY_TOKEN;
 
 public class MainActivity extends BaseActivity {
 
@@ -30,7 +41,6 @@ public class MainActivity extends BaseActivity {
     private FrameLayout crossfadeContent;
     private AHBottomNavigation bottomNavigation;
 
-    public static String currentStatus = "";
 
 
     @Override
@@ -43,16 +53,6 @@ public class MainActivity extends BaseActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.crossfade_content, currentFragment).commit();
         bottomNavigation(savedInstanceState);
         loadDrawer(savedInstanceState);
-    }
-
-    public static void setCurrentStatus(String status)
-    {
-        currentStatus = status;
-    }
-
-    public static String getCurrentStatus()
-    {
-        return currentStatus;
     }
 
 
@@ -91,15 +91,24 @@ public class MainActivity extends BaseActivity {
 
 
                             } else if (drawerItem.getIdentifier() == 4) {
+                                MyApp.getApi().logout().enqueue(new Callback() {
+                                    @Override
+                                    public void onResponse(Call call, Response response) {
+                                    }
 
+                                    @Override
+                                    public void onFailure(Call call, Throwable t) {
+                                    }
+                                });
+                                prefs.saveToPrefs(KEY_LOGGED,false);
+                                prefs.saveToPrefs(KEY_TOKEN,"");
+                                startActivity(new Intent(MainActivity.this, Login.class));
 
+                                finish();
                             }
 
                         }
-
                         return false;
-
-
                     }
                 })
                 .build();

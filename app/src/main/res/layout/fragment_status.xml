@@ -375,6 +375,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/chartLayout"
                 android:layout_width="match_parent"
                 android:layout_height="296dp"
                 android:orientation="vertical">

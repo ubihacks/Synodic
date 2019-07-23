@@ -3,11 +3,6 @@ package com.ubihacks.synodic.synodic.MODEL;
 import java.util.Date;
 
 public class DriverStatus {
-    public static final String STATUS_DRIVING = "driving";
-    public static final String STATUS_ON_DUTY = "onDuty";
-    public static final String STATUS_OFF_DUTY = "offDuty";
-    public static final String STATUS_SLEEPER_BERTH = "sleeper";
-
     private String driverState;
     private Date serverTime;
     private long userId;

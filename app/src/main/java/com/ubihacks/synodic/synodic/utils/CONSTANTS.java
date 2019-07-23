@@ -9,6 +9,12 @@ public class CONSTANTS {
     public static final String KEY_LOGGED = "USER_LOGGED_IN";
     public static final String KEY_TOKEN = "USER_TOKEN";
 
+    public static final String STATUS_DRIVING = "DRIVING";
+    public static final String STATUS_ON_DUTY = "ONDUTY";
+    public static final String STATUS_OFF_DUTY = "OFFDUTY";
+    public static final String STATUS_SLEEP = "SLEEPERBERTH";
+
+
     public static String NETWORK_STATUS = "0";
     public static final int SETTINGS = 123;
     public static final int ABOUT = 111;

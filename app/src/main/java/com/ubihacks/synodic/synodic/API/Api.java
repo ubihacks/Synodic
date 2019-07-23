@@ -10,7 +10,9 @@ import java.sql.Driver;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -32,6 +34,10 @@ public interface Api {
     // Refresh Cookies
     @GET("session")
     Call<User> session(@Query("token") String token);
+
+    // Logout
+    @DELETE("session")
+    Call<User> logout();
 
     @GET("devices")
     Call<List<Device>> getDevices();

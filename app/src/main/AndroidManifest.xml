@@ -33,8 +33,6 @@
 
         <activity android:name=".ACTIVITIES.StatusChagedActivity"></activity>
 
-
-
     </application>
 
 </manifest>

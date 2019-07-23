@@ -19,9 +19,17 @@ import retrofit2.Response;
 public class actions extends BaseActivity {
 
     public static DriverStatus statusDrivingResponse;
+    private static String currentDriverStatus = "";
 
+    public static String getCurrentDriverStatus() {
+        return currentDriverStatus;
+    }
 
-    public static DriverStatus setStatusDriving(int deviceId, String driverStatus, final String driverComment)
+    public static void setCurrentDriverStatus(String currentDriverStatus) {
+        actions.currentDriverStatus = currentDriverStatus;
+    }
+
+    public static DriverStatus updateDriverStatus(int deviceId, String driverStatus, final String driverComment)
     {
         DriverStatus st = new DriverStatus();
         st.setDriverState(driverStatus);
@@ -35,8 +43,8 @@ public class actions extends BaseActivity {
             @Override
             public void onResponse(Call<DriverStatus> call, Response<DriverStatus> response) {
                 statusDrivingResponse = response.body();
-                MainActivity.setCurrentStatus(statusDrivingResponse.getDriverState());
-                updateDriverStatus(UIUpdateContext);
+                actions.setCurrentDriverStatus(statusDrivingResponse.getDriverState());
+                updateDriverStatusOnUI(UIUpdateContext);
             }
 
             @Override
@@ -46,29 +54,14 @@ public class actions extends BaseActivity {
         return null;
     }
 
-    public static DriverStatus setStatusOnDuty()
-    {
-        return null;
-    }
-
-    public static DriverStatus setStatusOffDuty()
-    {
-        return null;
-    }
-
-    public static DriverStatus setStatusSleep()
-    {
-        return null;
-    }
-
     public static void fetchGPSLocation()
     {
 
     }
 
-    static void updateDriverStatus(Context context)
+    static void updateDriverStatusOnUI(Context context)
     {
         TextView txtView = (TextView) ((Activity)context).findViewById(R.id.txtDriverStatus);
-        txtView.setText(MainActivity.getCurrentStatus());
+        txtView.setText(actions.getCurrentDriverStatus());
     }
 }

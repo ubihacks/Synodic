@@ -11,10 +11,11 @@ import com.ubihacks.synodic.synodic.MyApp;
 import com.ubihacks.synodic.synodic.utils.actions;
 import com.ubihacks.synodic.synodic.R;
 
+import static com.ubihacks.synodic.synodic.utils.CONSTANTS.STATUS_DRIVING;
+import static com.ubihacks.synodic.synodic.utils.CONSTANTS.STATUS_OFF_DUTY;
+import static com.ubihacks.synodic.synodic.utils.CONSTANTS.STATUS_ON_DUTY;
+import static com.ubihacks.synodic.synodic.utils.CONSTANTS.STATUS_SLEEP;
 import static com.ubihacks.synodic.synodic.utils.actions.fetchGPSLocation;
-import static com.ubihacks.synodic.synodic.utils.actions.setStatusOffDuty;
-import static com.ubihacks.synodic.synodic.utils.actions.setStatusOnDuty;
-import static com.ubihacks.synodic.synodic.utils.actions.setStatusSleep;
 
 public class StatusChagedActivity extends BaseActivity implements View.OnClickListener {
 
@@ -82,16 +83,16 @@ public class StatusChagedActivity extends BaseActivity implements View.OnClickLi
         this.UIUpdateContext = this;
         switch (v.getId()) {
             case R.id.btnDriving:
-                actions.setStatusDriving(MyApp.dataProvider.selectedDevice.getId(), "DRIVING", driverComment.getText().toString());
+                actions.updateDriverStatus(MyApp.dataProvider.selectedDevice.getId(), STATUS_DRIVING, driverComment.getText().toString());
                 break;
             case R.id.btnOffDuty:
-                setStatusOffDuty();
+                actions.updateDriverStatus(MyApp.dataProvider.selectedDevice.getId(), STATUS_OFF_DUTY, driverComment.getText().toString());
                 break;
             case R.id.btnOnDuty:
-                setStatusOnDuty();
+                actions.updateDriverStatus(MyApp.dataProvider.selectedDevice.getId(), STATUS_ON_DUTY, driverComment.getText().toString());
                 break;
             case R.id.btnSleep:
-                setStatusSleep();
+                actions.updateDriverStatus(MyApp.dataProvider.selectedDevice.getId(), STATUS_SLEEP, driverComment.getText().toString());
                 break;
             case R.id.btnLocation:
                 fetchGPSLocation();
