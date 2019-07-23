@@ -24,6 +24,12 @@
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".ACTIVITIES.Login" />
 
+        <receiver android:name=".RECEIVERS.NetworkChangeReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

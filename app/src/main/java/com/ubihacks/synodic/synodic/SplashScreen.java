@@ -3,10 +3,12 @@ package com.ubihacks.synodic.synodic;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ubihacks.synodic.synodic.ACTIVITIES.BaseActivity;
 import com.ubihacks.synodic.synodic.ACTIVITIES.Login;
@@ -18,6 +20,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Logger;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,6 +41,7 @@ public class SplashScreen extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        api = MyApp.getApi();
 
         initView();
 
@@ -46,7 +50,6 @@ public class SplashScreen extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         if (!NetworkUtils.internetRequired(this)) {
             return;
         } if(prefs.getBoolean(KEY_LOGGED)){
@@ -55,6 +58,7 @@ public class SplashScreen extends BaseActivity {
             api.session(prefs.getString(KEY_TOKEN)).enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
+                    Log.w("INFO", response.body().toString());
                     MyApp.user = response.body();
                     if(MyApp.user != null){
                         home();
@@ -79,14 +83,21 @@ public class SplashScreen extends BaseActivity {
         MyApp.dataProvider.initializeDevices(new DataReceived() {
             @Override
             public void Success() {
-                new Timer().schedule(new TimerTask() {
+                MyApp.dataProvider.getCurrentDriverStatus(new DataReceived() {
                     @Override
-                    public void run() {
-                        startActivity(new Intent(context,MainActivity.class));
-                        overridePendingTransition(R.anim.downtoup,R.anim.uptodown);
-                        finish();
+                    public void Success() {
+                        new Timer().schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                overridePendingTransition(R.anim.downtoup,R.anim.uptodown);
+                                finish();
+                            }
+                        },500);
                     }
-                },1300);
+                });
+
+
             }
         });
 

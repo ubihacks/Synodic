@@ -1,29 +1,25 @@
 package com.ubihacks.synodic.synodic.Fragments;
 
 import android.content.Intent;
-import android.net.LinkAddress;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.scichart.charting.model.dataSeries.XyDataSeries;
 import com.scichart.charting.modifiers.ModifierGroup;
 import com.scichart.charting.visuals.SciChartSurface;
 import com.scichart.charting.visuals.annotations.HorizontalAnchorPoint;
 import com.scichart.charting.visuals.annotations.TextAnnotation;
 import com.scichart.charting.visuals.annotations.VerticalAnchorPoint;
 import com.scichart.charting.visuals.axes.IAxis;
-import com.scichart.charting.visuals.renderableSeries.FastLineRenderableSeries;
-import com.scichart.core.framework.UpdateSuspender;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.extensions.builders.SciChartBuilder;
-import com.ubihacks.synodic.synodic.R;
 import com.ubihacks.synodic.synodic.ACTIVITIES.StatusChagedActivity;
+import com.ubihacks.synodic.synodic.R;
+import com.ubihacks.synodic.synodic.utils.actions;
 
 import java.util.Collections;
 
@@ -40,6 +36,7 @@ public class Status extends BaseFragment implements View.OnClickListener {
     private TextView textTime;
     private TextView textConnectionStatus;
     private TextView textDate;
+    private TextView txtDriverStatus;
     public Status() {
         // Required empty public constructor
     }
@@ -52,6 +49,7 @@ public class Status extends BaseFragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_status, container, false);
 
         initView(view);
+        initDisplayParameters();
 
         sleep.setOnClickListener(this);
         onDuty.setOnClickListener(this);
@@ -60,11 +58,16 @@ public class Status extends BaseFragment implements View.OnClickListener {
         return view;
     }
 
+    private void initDisplayParameters() {
+        txtDriverStatus.setText(actions.getCurrentDriverStatus().getDriverState());
+    }
+
     private void initView(View view) {
         textDate = (TextView) view.findViewById(R.id.txtDate);
         textConnectionStatus = (TextView) view.findViewById(R.id.txtDriverStatus);
         textTime = (TextView) view.findViewById(R.id.txtTime);
         textSleepTime = (TextView) view.findViewById(R.id.timeSleep);
+        txtDriverStatus = (TextView) view.findViewById(R.id.txtDriverStatus);
         sleep = (Button) view.findViewById(R.id.btnSleep);
         driveTime = (TextView) view.findViewById(R.id.shiftTime);
         drive = (Button) view.findViewById(R.id.btnDriving);
@@ -134,5 +137,12 @@ public class Status extends BaseFragment implements View.OnClickListener {
                 startActivity(new Intent(getContext(), StatusChagedActivity.class));
                 break;
         }
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        initDisplayParameters();
+
     }
 }

@@ -60,6 +60,12 @@ public class StatusChagedActivity extends BaseActivity implements View.OnClickLi
         txtConnectionStatus = (TextView) findViewById(R.id.txtConnectionStatus);
         txtDate = (TextView) findViewById(R.id.txtDate);
         txtTime = (TextView) findViewById(R.id.txtTime);
+
+        initDisplayParameters();
+    }
+
+    private void initDisplayParameters() {
+        txtDriverStatus.setText(actions.getCurrentDriverStatus().getDriverState());
     }
 
 

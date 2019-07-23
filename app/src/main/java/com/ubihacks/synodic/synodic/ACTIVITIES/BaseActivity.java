@@ -35,7 +35,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
-    protected void ErrorSnackbar(CoordinatorLayout main){
+    protected void NoNetworkConnection(CoordinatorLayout main){
         snackbar = Snackbar
                 .make(main, "No internet connection!", Snackbar.LENGTH_INDEFINITE)
                 .setAction("RETRY", new View.OnClickListener() {

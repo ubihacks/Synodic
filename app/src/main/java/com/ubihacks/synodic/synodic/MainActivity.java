@@ -1,9 +1,11 @@
 package com.ubihacks.synodic.synodic;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -25,6 +27,7 @@ import com.ubihacks.synodic.synodic.Fragments.Home;
 import com.ubihacks.synodic.synodic.Fragments.Signature;
 import com.ubihacks.synodic.synodic.Fragments.Status;
 import com.ubihacks.synodic.synodic.MODEL.User;
+import com.ubihacks.synodic.synodic.RECEIVERS.NetworkChangeReceiver;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,6 +43,9 @@ public class MainActivity extends BaseActivity {
     private Toolbar toolbar;
     private FrameLayout crossfadeContent;
     private AHBottomNavigation bottomNavigation;
+    private CoordinatorLayout mainScreen;
+
+    IntentFilter intentFilter = new IntentFilter();
 
 
 
@@ -53,6 +59,24 @@ public class MainActivity extends BaseActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.crossfade_content, currentFragment).commit();
         bottomNavigation(savedInstanceState);
         loadDrawer(savedInstanceState);
+        RegisterNetworkReceiver();
+    }
+
+    NetworkChangeReceiver networkChangeReceiver = new NetworkChangeReceiver(){
+        @Override
+        protected void onNetworkError() {
+            super.onNetworkError();
+
+            NoNetworkConnection(mainScreen);
+        }
+    };
+
+    private void RegisterNetworkReceiver() {
+
+        intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        intentFilter.setPriority(100);
+        registerReceiver(networkChangeReceiver,intentFilter);
+
     }
 
 
@@ -91,13 +115,15 @@ public class MainActivity extends BaseActivity {
 
 
                             } else if (drawerItem.getIdentifier() == 4) {
-                                MyApp.getApi().logout().enqueue(new Callback() {
+                                MyApp.getApi().logout().enqueue(new Callback<User>() {
                                     @Override
-                                    public void onResponse(Call call, Response response) {
+                                    public void onResponse(Call<User> call, Response<User> response) {
+
                                     }
 
                                     @Override
-                                    public void onFailure(Call call, Throwable t) {
+                                    public void onFailure(Call<User> call, Throwable t) {
+
                                     }
                                 });
                                 prefs.saveToPrefs(KEY_LOGGED,false);
@@ -175,5 +201,6 @@ public class MainActivity extends BaseActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         crossfadeContent = (FrameLayout) findViewById(R.id.crossfade_content);
         bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
+        mainScreen = (CoordinatorLayout) findViewById(R.id.mainScreen);
     }
 }

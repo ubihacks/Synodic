@@ -19,13 +19,13 @@ import retrofit2.Response;
 public class actions extends BaseActivity {
 
     public static DriverStatus statusDrivingResponse;
-    private static String currentDriverStatus = "";
+    private static DriverStatus currentDriverStatus = null;
 
-    public static String getCurrentDriverStatus() {
+    public static DriverStatus getCurrentDriverStatus() {
         return currentDriverStatus;
     }
 
-    public static void setCurrentDriverStatus(String currentDriverStatus) {
+    public static void setCurrentDriverStatus(DriverStatus currentDriverStatus) {
         actions.currentDriverStatus = currentDriverStatus;
     }
 
@@ -43,7 +43,7 @@ public class actions extends BaseActivity {
             @Override
             public void onResponse(Call<DriverStatus> call, Response<DriverStatus> response) {
                 statusDrivingResponse = response.body();
-                actions.setCurrentDriverStatus(statusDrivingResponse.getDriverState());
+                actions.setCurrentDriverStatus(statusDrivingResponse);
                 updateDriverStatusOnUI(UIUpdateContext);
             }
 
@@ -62,6 +62,6 @@ public class actions extends BaseActivity {
     static void updateDriverStatusOnUI(Context context)
     {
         TextView txtView = (TextView) ((Activity)context).findViewById(R.id.txtDriverStatus);
-        txtView.setText(actions.getCurrentDriverStatus());
+        txtView.setText(actions.getCurrentDriverStatus().getDriverState());
     }
 }

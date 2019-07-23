@@ -54,7 +54,7 @@ public interface Api {
     Call<DriverStatus> setDriverStatus(@Body DriverStatus status);
 
     @GET("driverstatus")
-    Call<DriverStatus> getCurrentDriverStatus(@Query("deviceId") int id);
+    Call<List<DriverStatus>> getCurrentDriverStatus(@Query("deviceId") int id);
 
     @GET("driverstatus")
     Call<List<DriverStatus>> getDriverStatus(@Query("deviceId") int id, @Query("from") String from, @Query("to") String to);
