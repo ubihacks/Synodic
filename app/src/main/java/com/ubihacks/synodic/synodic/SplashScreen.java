@@ -14,8 +14,10 @@ import com.ubihacks.synodic.synodic.ACTIVITIES.BaseActivity;
 import com.ubihacks.synodic.synodic.ACTIVITIES.Login;
 import com.ubihacks.synodic.synodic.API.Api;
 import com.ubihacks.synodic.synodic.API.DataReceived;
+import com.ubihacks.synodic.synodic.MODEL.DriverStatus;
 import com.ubihacks.synodic.synodic.MODEL.User;
 import com.ubihacks.synodic.synodic.utils.NetworkUtils;
+import com.ubihacks.synodic.synodic.utils.actions;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.Timer;
@@ -28,6 +30,10 @@ import retrofit2.Response;
 
 import static com.ubihacks.synodic.synodic.utils.CONSTANTS.KEY_LOGGED;
 import static com.ubihacks.synodic.synodic.utils.CONSTANTS.KEY_TOKEN;
+import static com.ubihacks.synodic.synodic.utils.CONSTANTS.STATUS_DRIVING;
+import static com.ubihacks.synodic.synodic.utils.CONSTANTS.STATUS_OFF_DUTY;
+import static com.ubihacks.synodic.synodic.utils.CONSTANTS.STATUS_ON_DUTY;
+import static com.ubihacks.synodic.synodic.utils.CONSTANTS.STATUS_SLEEP;
 
 public class SplashScreen extends BaseActivity {
 
@@ -58,7 +64,6 @@ public class SplashScreen extends BaseActivity {
             api.session(prefs.getString(KEY_TOKEN)).enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
-                    Log.w("INFO", response.body().toString());
                     MyApp.user = response.body();
                     if(MyApp.user != null){
                         home();
@@ -86,14 +91,21 @@ public class SplashScreen extends BaseActivity {
                 MyApp.dataProvider.getCurrentDriverStatus(new DataReceived() {
                     @Override
                     public void Success() {
-                        new Timer().schedule(new TimerTask() {
+
+                        MyApp.dataProvider.getCurrentDayDriverStatus(new DataReceived() {
                             @Override
-                            public void run() {
-                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                                overridePendingTransition(R.anim.downtoup,R.anim.uptodown);
-                                finish();
+                            public void Success() {
+                                actions.calculateHOS();
+                                new Timer().schedule(new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                        overridePendingTransition(R.anim.downtoup,R.anim.uptodown);
+                                        finish();
+                                    }
+                                },500);
                             }
-                        },500);
+                        });
                     }
                 });
 
@@ -118,8 +130,6 @@ public class SplashScreen extends BaseActivity {
 
         splashIcon = (ImageView) findViewById(R.id.splashIcon);
         //splashText = (TextView) findViewById(R.id.splashText);
-
-
     }
 
 

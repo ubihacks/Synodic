@@ -32,7 +32,12 @@ public class Status extends BaseFragment implements View.OnClickListener {
     private Button drive;
     private Button onDuty;
     private Button offDuty;
-    private TextView textSleepTime;
+
+    private TextView timeSleep;
+    private TextView timeOnDuty;
+    private TextView timeOffDuty;
+    private TextView timeDriving;
+
     private TextView textTime;
     private TextView textConnectionStatus;
     private TextView textDate;
@@ -48,6 +53,7 @@ public class Status extends BaseFragment implements View.OnClickListener {
 
         View view = inflater.inflate(R.layout.fragment_status, container, false);
 
+
         initView(view);
         initDisplayParameters();
 
@@ -60,13 +66,21 @@ public class Status extends BaseFragment implements View.OnClickListener {
 
     private void initDisplayParameters() {
         txtDriverStatus.setText(actions.getCurrentDriverStatus().getDriverState());
+        timeDriving.setText(actions.longToTimeString(actions.getTimeDriving()));
+        timeOnDuty.setText(actions.longToTimeString(actions.getTimeOnDuty()));
+        timeOffDuty.setText(actions.longToTimeString(actions.getTimeOffDuty()));
+        timeSleep.setText(actions.longToTimeString(actions.getTimeSleeping()));
+
     }
 
     private void initView(View view) {
         textDate = (TextView) view.findViewById(R.id.txtDate);
         textConnectionStatus = (TextView) view.findViewById(R.id.txtDriverStatus);
         textTime = (TextView) view.findViewById(R.id.txtTime);
-        textSleepTime = (TextView) view.findViewById(R.id.timeSleep);
+        timeSleep = (TextView) view.findViewById(R.id.timeSleep);
+        timeOnDuty = (TextView) view.findViewById(R.id.timeOnDuty);
+        timeOffDuty = (TextView) view.findViewById(R.id.timeOffDuty);
+        timeDriving = (TextView) view.findViewById(R.id.timeDriving);
         txtDriverStatus = (TextView) view.findViewById(R.id.txtDriverStatus);
         sleep = (Button) view.findViewById(R.id.btnSleep);
         driveTime = (TextView) view.findViewById(R.id.shiftTime);
