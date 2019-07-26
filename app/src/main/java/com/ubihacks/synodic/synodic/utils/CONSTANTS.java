@@ -1,9 +1,5 @@
 package com.ubihacks.synodic.synodic.utils;
 
-/**
- * Created by Atiq on 5/18/2018.
- */
-
 public class CONSTANTS {
 
     public static final String KEY_LOGGED = "USER_LOGGED_IN";
