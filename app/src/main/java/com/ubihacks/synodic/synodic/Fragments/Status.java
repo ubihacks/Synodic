@@ -23,6 +23,8 @@ import com.ubihacks.synodic.synodic.utils.actions;
 
 import java.util.Collections;
 
+import static com.ubihacks.synodic.synodic.ACTIVITIES.BaseActivity.UIUpdateContext;
+
 public class Status extends BaseFragment implements View.OnClickListener {
 
 
@@ -52,6 +54,7 @@ public class Status extends BaseFragment implements View.OnClickListener {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_status, container, false);
+        UIUpdateContext = this.getContext();
 
 
         initView(view);
@@ -156,6 +159,8 @@ public class Status extends BaseFragment implements View.OnClickListener {
     @Override
     public void onStart(){
         super.onStart();
+        UIUpdateContext = this.getContext();
+        actions.calculateHOS();
         initDisplayParameters();
 
     }

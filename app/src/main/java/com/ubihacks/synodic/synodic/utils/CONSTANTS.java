@@ -11,6 +11,9 @@ public class CONSTANTS {
     public static final String STATUS_SLEEP = "SLEEPERBERTH";
 
 
+    public static final String INTERNET_DISCONNECTED_LABEL = "DISCONNECTED";
+    public static final String INTERNET_CONNECTED_LABEL = "CONNECTED";
+
     public static String NETWORK_STATUS = "0";
     public static final int SETTINGS = 123;
     public static final int ABOUT = 111;

@@ -3,6 +3,7 @@ package com.ubihacks.synodic.synodic.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -21,14 +22,23 @@ import static com.ubihacks.synodic.synodic.utils.CONSTANTS.STATUS_DRIVING;
 import static com.ubihacks.synodic.synodic.utils.CONSTANTS.STATUS_OFF_DUTY;
 import static com.ubihacks.synodic.synodic.utils.CONSTANTS.STATUS_ON_DUTY;
 import static com.ubihacks.synodic.synodic.utils.CONSTANTS.STATUS_SLEEP;
+import static com.ubihacks.synodic.synodic.utils.UIActions.updateDriverStatusOnUI;
 
 
 public class actions extends BaseActivity {
-
     public static DriverStatus statusResponse = null;
     private static DriverStatus currentDriverStatus = null;
     private static List<DriverStatus> currentDayStatuses = null;
+    private static String currentConntectionStatus = null;
     private static long timeDriving = 0, timeSleeping = 0, timeOnDuty = 0, timeOffDuty = 0;
+
+    public static String getCurrentConntectionStatus() {
+        return currentConntectionStatus;
+    }
+
+    public static void setCurrentConntectionStatus(String currentConntectionStatus) {
+        actions.currentConntectionStatus = currentConntectionStatus;
+    }
 
     public static long getTimeDriving() {
         return timeDriving;
@@ -91,7 +101,7 @@ public class actions extends BaseActivity {
             public void onResponse(Call<DriverStatus> call, Response<DriverStatus> response) {
                 statusResponse = response.body();
                 actions.setCurrentDriverStatus(statusResponse);
-                updateDriverStatusOnUI(UIUpdateContext);
+                updateDriverStatusOnUI();
             }
             @Override
             public void onFailure(Call<DriverStatus> call, Throwable t) {
@@ -105,14 +115,9 @@ public class actions extends BaseActivity {
 
     }
 
-    static void updateDriverStatusOnUI(Context context)
-    {
-        TextView txtView = (TextView) ((Activity)context).findViewById(R.id.txtDriverStatus);
-        txtView.setText(actions.getCurrentDriverStatus().getDriverState());
-    }
-
     public static void calculateHOS()
     {
+        timeDriving = timeOffDuty = timeOnDuty = timeSleeping = 0;
         int iterator = 1;
         for (DriverStatus st: actions.getCurrentDayStatuses()) {
             Log.w("STATUS", "TYPE: " + st.getDriverState() + "STATUS TIME: " + st.getServerTime());
