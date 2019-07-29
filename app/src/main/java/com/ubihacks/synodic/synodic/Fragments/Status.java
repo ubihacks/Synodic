@@ -1,7 +1,9 @@
 package com.ubihacks.synodic.synodic.Fragments;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.extensions.builders.SciChartBuilder;
 import com.ubihacks.synodic.synodic.ACTIVITIES.StatusChagedActivity;
 import com.ubihacks.synodic.synodic.R;
+import com.ubihacks.synodic.synodic.RECEIVERS.SocketDataReceiver;
 import com.ubihacks.synodic.synodic.utils.actions;
 
 import java.util.Collections;
@@ -59,6 +62,8 @@ public class Status extends BaseFragment implements View.OnClickListener {
 
         initView(view);
         initDisplayParameters();
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(new SocketDataReceiver(),
+                new IntentFilter("newDataArrived"));
 
         sleep.setOnClickListener(this);
         onDuty.setOnClickListener(this);

@@ -31,7 +31,7 @@
         </receiver>
 
         <service
-            android:name=".SERVICES.SocketService"
+            android:name=".WEB_SOCKET.WEBSOCKET"
             android:enabled="true">
         </service>
 

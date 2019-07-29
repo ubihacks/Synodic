@@ -88,7 +88,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                             MyApp.dataProvider.getCurrentDriverStatus(new DataReceived() {
                                 @Override
                                 public void Success() {
-
                                     MyApp.dataProvider.getCurrentDayDriverStatus(new DataReceived() {
                                         @Override
                                         public void Success() {

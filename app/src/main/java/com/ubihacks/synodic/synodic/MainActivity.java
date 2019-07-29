@@ -6,9 +6,9 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -28,11 +28,14 @@ import com.ubihacks.synodic.synodic.Fragments.Signature;
 import com.ubihacks.synodic.synodic.Fragments.Status;
 import com.ubihacks.synodic.synodic.MODEL.User;
 import com.ubihacks.synodic.synodic.RECEIVERS.NetworkChangeReceiver;
+import com.ubihacks.synodic.synodic.RECEIVERS.SocketDataReceiver;
+import com.ubihacks.synodic.synodic.WEB_SOCKET.WEBSOCKET;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.ubihacks.synodic.synodic.MyApp.getContext;
 import static com.ubihacks.synodic.synodic.utils.CONSTANTS.KEY_LOGGED;
 import static com.ubihacks.synodic.synodic.utils.CONSTANTS.KEY_TOKEN;
 
@@ -47,14 +50,14 @@ public class MainActivity extends BaseActivity {
 
     IntentFilter intentFilter = new IntentFilter();
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        Log.w("DATE", "MAIN");
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(new SocketDataReceiver(),
+                new IntentFilter("newDataArrived"));
+        startService(new Intent(context, WEBSOCKET.class));
 
         currentFragment = new Status();
         getSupportFragmentManager().beginTransaction().replace(R.id.crossfade_content, currentFragment).commit();

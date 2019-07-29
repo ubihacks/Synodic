@@ -59,8 +59,8 @@ public class SplashScreen extends BaseActivity {
         if (!NetworkUtils.internetRequired(this)) {
             return;
         } if(prefs.getBoolean(KEY_LOGGED)){
+            Log.w("LOG", "KEY YES");
             // Refresh Cookies
-
             api.session(prefs.getString(KEY_TOKEN)).enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
@@ -79,6 +79,7 @@ public class SplashScreen extends BaseActivity {
             });
 
         } else{
+            Log.w("LOG", "KEY NO");
             login();
         }
     }
