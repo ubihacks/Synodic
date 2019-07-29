@@ -52,12 +52,14 @@ public class DataProvider {
     }
 
     public void getCurrentDriverStatus(final DataReceived dataReceived) {
+        Log.w("DATE", "CALLED");
         final Call<List<DriverStatus>> currentDriverStatus = api.getCurrentDriverStatus(selectedDevice.getId());
 
         currentDriverStatus.enqueue(new Callback<List<DriverStatus>>() {
             @Override
             public void onResponse(Call<List<DriverStatus>> call, Response<List<DriverStatus>> response) {
                 List<DriverStatus> statuses = response.body();
+                Log.w("DATE", "TO: " + statuses.size());
                 actions.setCurrentDriverStatus(statuses.get(0));
                 dataReceived.Success();
             }
@@ -65,6 +67,7 @@ public class DataProvider {
             @Override
             public void onFailure(Call<List<DriverStatus>> call, Throwable t) {
                 actions.setCurrentDriverStatus(null);
+                Log.w("DATE", "FAILED");
             }
         });
     }
@@ -84,7 +87,8 @@ public class DataProvider {
         todayStatuses.enqueue(new Callback<List<DriverStatus>>() {
             @Override
             public void onResponse(Call<List<DriverStatus>> call, Response<List<DriverStatus>> response) {
-                setCurrentDayStatuses(response.body());
+                List<DriverStatus> statuses = response.body();
+                setCurrentDayStatuses(statuses);
                 dataReceived.Success();
             }
 

@@ -1,16 +1,11 @@
 package com.ubihacks.synodic.synodic.utils;
 
 
-import android.app.Activity;
-import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.ubihacks.synodic.synodic.ACTIVITIES.BaseActivity;
 import com.ubihacks.synodic.synodic.MODEL.DriverStatus;
 import com.ubihacks.synodic.synodic.MyApp;
-import com.ubihacks.synodic.synodic.R;
 
 import java.util.List;
 

@@ -20,7 +20,11 @@ import com.ubihacks.synodic.synodic.MainActivity;
 import com.ubihacks.synodic.synodic.MyApp;
 import com.ubihacks.synodic.synodic.R;
 import com.ubihacks.synodic.synodic.utils.PrefUtils;
+import com.ubihacks.synodic.synodic.utils.actions;
 import com.wang.avi.AVLoadingIndicatorView;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -81,14 +85,28 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     MyApp.dataProvider.initializeDevices(new DataReceived() {
                         @Override
                         public void Success() {
-                            if(rememberPass.isChecked()){
-                                prefs.saveToPrefs(KEY_LOGGED,true);
-                                prefs.saveToPrefs(KEY_TOKEN,MyApp.user.getToken());
-                            }
-                            startActivity(new Intent(Login.this, MainActivity.class));
+                            MyApp.dataProvider.getCurrentDriverStatus(new DataReceived() {
+                                @Override
+                                public void Success() {
 
-                            loginLoading.hide();
-                            finish();
+                                    MyApp.dataProvider.getCurrentDayDriverStatus(new DataReceived() {
+                                        @Override
+                                        public void Success() {
+                                            actions.calculateHOS();
+                                            if(rememberPass.isChecked()){
+                                                prefs.saveToPrefs(KEY_LOGGED,true);
+                                                prefs.saveToPrefs(KEY_TOKEN,MyApp.user.getToken());
+                                            }
+                                            startActivity(new Intent(Login.this, MainActivity.class));
+
+                                            loginLoading.hide();
+                                            finish();
+                                        }
+                                    });
+                                }
+                            });
+
+
                         }
                     });
                 }
