@@ -29,6 +29,7 @@ import com.ubihacks.synodic.synodic.Fragments.Status;
 import com.ubihacks.synodic.synodic.MODEL.User;
 import com.ubihacks.synodic.synodic.RECEIVERS.NetworkChangeReceiver;
 import com.ubihacks.synodic.synodic.RECEIVERS.SocketDataReceiver;
+import com.ubihacks.synodic.synodic.SERVICES.WebService;
 import com.ubihacks.synodic.synodic.WEB_SOCKET.WEBSOCKET;
 
 import retrofit2.Call;
@@ -57,7 +58,7 @@ public class MainActivity extends BaseActivity {
         initView();
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(new SocketDataReceiver(),
                 new IntentFilter("newDataArrived"));
-        startService(new Intent(context, WEBSOCKET.class));
+        startService(new Intent(context, WebService.class));
 
         currentFragment = new Status();
         getSupportFragmentManager().beginTransaction().replace(R.id.crossfade_content, currentFragment).commit();

@@ -31,7 +31,7 @@
         </receiver>
 
         <service
-            android:name=".WEB_SOCKET.WEBSOCKET"
+            android:name=".SERVICES.WebService"
             android:enabled="true">
         </service>
 

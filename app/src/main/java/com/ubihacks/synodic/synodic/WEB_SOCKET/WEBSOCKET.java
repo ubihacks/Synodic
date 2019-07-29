@@ -1,35 +1,29 @@
 package com.ubihacks.synodic.synodic.WEB_SOCKET;
 
-import android.app.Service;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.os.IBinder;
-import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.neovisionaries.ws.client.ThreadType;
 import com.neovisionaries.ws.client.WebSocket;
 import com.neovisionaries.ws.client.WebSocketException;
-import com.neovisionaries.ws.client.WebSocketFactory;
 import com.neovisionaries.ws.client.WebSocketFrame;
 import com.neovisionaries.ws.client.WebSocketListener;
 import com.neovisionaries.ws.client.WebSocketState;
 import com.ubihacks.synodic.synodic.MODEL.Position;
-import com.ubihacks.synodic.synodic.MyApp;
 
-import java.io.IOException;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.List;
 import java.util.Map;
 
-public class WEBSOCKET extends Service implements WebSocketListener {
+import static com.ubihacks.synodic.synodic.utils.actions.setLatestPosition;
 
-    private WebSocket ws = null;
-
-
+public class WEBSOCKET implements WebSocketListener {
+    JsonParser parser = null;
+    Gson gson = null;
     @Override
     public void onStateChanged(com.neovisionaries.ws.client.WebSocket websocket, WebSocketState newState) throws Exception {
 
@@ -37,10 +31,8 @@ public class WEBSOCKET extends Service implements WebSocketListener {
 
     @Override
     public void onConnected(com.neovisionaries.ws.client.WebSocket websocket, Map<String, List<String>> headers) throws Exception {
-            registerDataReceiver();
-    }
-
-    private void registerDataReceiver() {
+        parser = new JsonParser();
+        gson = new Gson();
     }
 
     @Override
@@ -90,17 +82,17 @@ public class WEBSOCKET extends Service implements WebSocketListener {
 
     @Override
     public void onTextMessage(com.neovisionaries.ws.client.WebSocket websocket, String message) throws Exception {
-        Gson gson = new Gson();
-        Log.d("TAG", "onTextMessage: " + message);
-        Position position = gson.fromJson(message, Position.class);
+        JSONObject JsonObject = new JSONObject(message);
+        JSONArray positionArray = JsonObject.getJSONArray("positions");
 
-        Intent intent = new Intent("newDataArrived");
-        intent.putExtra("key", message);
+        JsonElement mJson =  parser.parse(positionArray.get(0).toString());
 
+        Position position = gson.fromJson(mJson, Position.class);
 
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        setLatestPosition(position);
 
-        Log.w("TAG", position.getDeviceTime().toString());
+        Log.w("SERVICE", position.getId() + "");
+
     }
 
     @Override
@@ -181,41 +173,5 @@ public class WEBSOCKET extends Service implements WebSocketListener {
     @Override
     public void onSendingHandshake(WebSocket websocket, String requestLine, List<String[]> headers) throws Exception {
 
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        super.onStartCommand(intent, flags, startId);
-        Log.w("SERVICE", "STARTED");
-        WebSocketFactory factory = new WebSocketFactory().setConnectionTimeout(5000);
-
-
-        try {
-            final String COOKIES = "COOKIES";
-            String cookie = PreferenceManager.getDefaultSharedPreferences(MyApp.getContext().getApplicationContext()).getStringSet(COOKIES,null).toString().split(";")[0].substring(1);
-            Log.w("TAG", "Cookie is " + cookie);
-            ws = factory.createSocket("ws://192.168.10.30:8082/api/socket");
-            ws.addHeader("Cookie", cookie);
-            ws.addListener(new WEBSOCKET());
-
-            ws.connectAsynchronously();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return START_STICKY;
-    }
-
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Intent restartService = new Intent("RestartService");
-        sendBroadcast(restartService);
     }
 }

@@ -19,7 +19,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
@@ -27,32 +27,24 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
     implementation 'com.aurelhubert:ahbottomnavigation:2.1.0'
     implementation 'com.github.anastr:speedviewlib:1.3.1'
-
     compile 'com.github.gcacace:signature-pad:1.2.1'
     implementation 'com.github.f0ris.sweetalert:library:1.5.1'
     compile 'com.neovisionaries:nv-websocket-client:2.4'
-
-
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.google.code.gson:gson:2.8.0'
-
-
     implementation('com.mikepenz:materialdrawer:6.0.7@aar') {
         transitive = true
     }
-
-
     implementation 'com.wang.avi:library:2.1.3'
     implementation 'com.android.support:cardview-v7:28.0.0'
-
-    compile (group: 'com.scichart.library', name: 'core', version: '2.0.0.1654', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'data', version: '2.0.0.1654', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'drawing', version: '2.0.0.1654', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'charting', version: '2.0.0.1654', ext: 'aar')
-    compile (group: 'com.scichart.library', name: 'extensions',version: '2.0.0.1654', ext: 'aar')
-
+    compile 'com.scichart.library:core:2.0.0.1654@aar'
+    compile 'com.scichart.library:data:2.0.0.1654@aar'
+    compile 'com.scichart.library:drawing:2.0.0.1654@aar'
+    compile 'com.scichart.library:charting:2.0.0.1654@aar'
+    compile 'com.scichart.library:extensions:2.0.0.1654@aar'
+    implementation files('D:/GATSAN Technologies/GATSAN Technologies/Android Projects/SynodicELD Latest (Ubaid)/Synodic/libs/jackson-core-2.1.1.jar')
+    implementation files('D:/GATSAN Technologies/GATSAN Technologies/Android Projects/SynodicELD Latest (Ubaid)/Synodic/libs/jackson-databind-2.1.1.jar')
 }

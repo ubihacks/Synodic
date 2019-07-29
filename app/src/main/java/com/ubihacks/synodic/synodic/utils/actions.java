@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.ubihacks.synodic.synodic.ACTIVITIES.BaseActivity;
 import com.ubihacks.synodic.synodic.MODEL.DriverStatus;
+import com.ubihacks.synodic.synodic.MODEL.Position;
 import com.ubihacks.synodic.synodic.MyApp;
 
 import java.util.List;
@@ -26,6 +27,15 @@ public class actions extends BaseActivity {
     private static List<DriverStatus> currentDayStatuses = null;
     private static String currentConntectionStatus = null;
     private static long timeDriving = 0, timeSleeping = 0, timeOnDuty = 0, timeOffDuty = 0;
+    private static Position latestPosition = null;
+
+    public static Position getLatestPosition() {
+        return latestPosition;
+    }
+
+    public static void setLatestPosition(Position latestPosition) {
+        actions.latestPosition = latestPosition;
+    }
 
     public static String getCurrentConntectionStatus() {
         return currentConntectionStatus;
