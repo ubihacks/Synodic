@@ -1,5 +1,10 @@
 package com.ubihacks.synodic.synodic.WEB_SOCKET;
 
+import android.app.Activity;
+import android.app.AppComponentFactory;
+import android.content.Context;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -11,7 +16,11 @@ import com.neovisionaries.ws.client.WebSocketException;
 import com.neovisionaries.ws.client.WebSocketFrame;
 import com.neovisionaries.ws.client.WebSocketListener;
 import com.neovisionaries.ws.client.WebSocketState;
+import com.ubihacks.synodic.synodic.ACTIVITIES.BaseActivity;
+import com.ubihacks.synodic.synodic.MODEL.Device;
+import com.ubihacks.synodic.synodic.MODEL.Event;
 import com.ubihacks.synodic.synodic.MODEL.Position;
+import com.ubihacks.synodic.synodic.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,11 +28,18 @@ import org.json.JSONObject;
 import java.util.List;
 import java.util.Map;
 
+import static com.ubihacks.synodic.synodic.utils.CONSTANTS.INTENT_VEHICLE_MOVED;
+import static com.ubihacks.synodic.synodic.utils.CONSTANTS.INTENT_VEHICLE_ONLINE;
+import static com.ubihacks.synodic.synodic.utils.CONSTANTS.INTENT_VEHICLE_STOPPED;
+import static com.ubihacks.synodic.synodic.utils.CONSTANTS.MESSAGE_TYPE_DEVICE;
+import static com.ubihacks.synodic.synodic.utils.CONSTANTS.MESSAGE_TYPE_EVENTS;
+import static com.ubihacks.synodic.synodic.utils.CONSTANTS.MESSAGE_TYPE_POSITION;
 import static com.ubihacks.synodic.synodic.utils.actions.setLatestPosition;
 
 public class WEBSOCKET implements WebSocketListener {
     JsonParser parser = null;
     Gson gson = null;
+    Context context = null;
     @Override
     public void onStateChanged(com.neovisionaries.ws.client.WebSocket websocket, WebSocketState newState) throws Exception {
 
@@ -33,6 +49,8 @@ public class WEBSOCKET implements WebSocketListener {
     public void onConnected(com.neovisionaries.ws.client.WebSocket websocket, Map<String, List<String>> headers) throws Exception {
         parser = new JsonParser();
         gson = new Gson();
+        Log.w("INTENT", "CONNECTED");
+        context = MainActivity.getMainContext();
     }
 
     @Override
@@ -82,17 +100,62 @@ public class WEBSOCKET implements WebSocketListener {
 
     @Override
     public void onTextMessage(com.neovisionaries.ws.client.WebSocket websocket, String message) throws Exception {
-        JSONObject JsonObject = new JSONObject(message);
-        JSONArray positionArray = JsonObject.getJSONArray("positions");
+        String messageType = message.split("\"")[1];
+        switch (messageType)
+        {
+            case MESSAGE_TYPE_POSITION:
+            {
+                JSONObject JsonObject = new JSONObject(message);
+                JSONArray positionArray = JsonObject.getJSONArray("positions");
+                JsonElement mJson =  parser.parse(positionArray.get(0).toString());
+                Position position = gson.fromJson(mJson, Position.class);
+                setLatestPosition(position);
+                generateVehicleMotionBroadcast(position);
+            }
+            break;
+            case MESSAGE_TYPE_DEVICE:
+            {
+                JSONObject JsonObject = new JSONObject(message);
+                JSONArray positionArray = JsonObject.getJSONArray("positions");
+                JsonElement mJson =  parser.parse(positionArray.get(0).toString());
+                Device device = gson.fromJson(mJson, Device.class);
 
-        JsonElement mJson =  parser.parse(positionArray.get(0).toString());
+            }
+            break;
+            case MESSAGE_TYPE_EVENTS:
+            {
+                JSONObject JsonObject = new JSONObject(message);
+                JSONArray positionArray = JsonObject.getJSONArray("positions");
+                JsonElement mJson =  parser.parse(positionArray.get(0).toString());
+                Event event = gson.fromJson(mJson, Event.class);
+                generateBroadcast(event);
+            }
+            break;
+            default:
+                Log.w("TAG", "NOT HANDLED");
+        }
+    }
 
-        Position position = gson.fromJson(mJson, Position.class);
+    private void generateVehicleMotionBroadcast(Position position) {
+        if(position.getAttributes().getMotion())
+        {
+            context.sendBroadcast(new Intent(INTENT_VEHICLE_MOVED));
+        }
+        else
+        {
+            context.sendBroadcast(new Intent(INTENT_VEHICLE_STOPPED));
+        }
+    }
 
-        setLatestPosition(position);
-
-        Log.w("SERVICE", position.getId() + "");
-
+    private void generateBroadcast(Event event) {
+        switch (event.getType())
+        {
+            case Event.TYPE_DEVICE_ONLINE:
+            {
+                context.sendBroadcast(new Intent(INTENT_VEHICLE_ONLINE));
+            }
+            break;
+        }
     }
 
     @Override

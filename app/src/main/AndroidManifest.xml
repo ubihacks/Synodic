@@ -46,6 +46,15 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".RECEIVERS.SocketDataReceiver">
+            <intent-filter>
+                <action android:name="VEHICLE_ONLINE"/>
+                <action android:name="VEHICLE_OFFLINE"/>
+                <action android:name="VEHICLE_STOPPED"/>
+                <action android:name="VEHICLE_MOVING"/>
+            </intent-filter>
+        </receiver>
+
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

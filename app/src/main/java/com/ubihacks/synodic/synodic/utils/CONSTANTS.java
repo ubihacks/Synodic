@@ -14,6 +14,19 @@ public class CONSTANTS {
     public static final String INTERNET_DISCONNECTED_LABEL = "DISCONNECTED";
     public static final String INTERNET_CONNECTED_LABEL = "CONNECTED";
 
+    public static final String INTENT_VEHICLE_MOVED = "VEHICLE_MOVING";
+    public static final String INTENT_VEHICLE_STOPPED = "VEHICLE_STOPPED";
+    public static final String INTENT_VEHICLE_ONLINE = "VEHICLE_ONLINE";
+    public static final String INTENT_VEHICLE_OFFLINE = "VEHICLE_OFFLINE";
+
+
+
+    public static final String MESSAGE_TYPE_POSITION = "positions";
+    public static final String MESSAGE_TYPE_DEVICE = "devices";
+    public static final String MESSAGE_TYPE_EVENTS = "events";
+
+
+
     public static String NETWORK_STATUS = "0";
     public static final int SETTINGS = 123;
     public static final int ABOUT = 111;

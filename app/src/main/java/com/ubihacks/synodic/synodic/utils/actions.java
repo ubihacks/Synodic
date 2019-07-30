@@ -7,6 +7,8 @@ import com.ubihacks.synodic.synodic.ACTIVITIES.BaseActivity;
 import com.ubihacks.synodic.synodic.MODEL.DriverStatus;
 import com.ubihacks.synodic.synodic.MODEL.Position;
 import com.ubihacks.synodic.synodic.MyApp;
+import com.ubihacks.synodic.synodic.TIMERS.VehicleDriveTimer;
+import com.ubihacks.synodic.synodic.TIMERS.VehicleStopTimer;
 
 import java.util.List;
 
@@ -28,6 +30,24 @@ public class actions extends BaseActivity {
     private static String currentConntectionStatus = null;
     private static long timeDriving = 0, timeSleeping = 0, timeOnDuty = 0, timeOffDuty = 0;
     private static Position latestPosition = null;
+    private static VehicleDriveTimer driverTimer = null;
+    private static VehicleStopTimer stopTimer = null;
+
+    public static VehicleStopTimer getStopTimer() {
+        return stopTimer;
+    }
+
+    public static void setStopTimer(VehicleStopTimer stopTimer) {
+        actions.stopTimer = stopTimer;
+    }
+
+    public static VehicleDriveTimer getDriverTimer() {
+        return driverTimer;
+    }
+
+    public static void setDriverTimer(VehicleDriveTimer driverTimer) {
+        actions.driverTimer = driverTimer;
+    }
 
     public static Position getLatestPosition() {
         return latestPosition;

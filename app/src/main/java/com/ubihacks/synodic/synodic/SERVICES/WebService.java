@@ -48,7 +48,6 @@ public class WebService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ws.disconnect();
 
         Intent restartService = new Intent("RestartService");
         sendBroadcast(restartService);

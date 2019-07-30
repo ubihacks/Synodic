@@ -1,5 +1,6 @@
 package com.ubihacks.synodic.synodic;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
@@ -48,25 +49,34 @@ public class MainActivity extends BaseActivity {
     private FrameLayout crossfadeContent;
     private AHBottomNavigation bottomNavigation;
     private CoordinatorLayout mainScreen;
-
-    IntentFilter intentFilter = new IntentFilter();
+    SocketDataReceiver dataReceiver = new SocketDataReceiver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(new SocketDataReceiver(),
-                new IntentFilter("newDataArrived"));
+        RegisterNetworkReceiver();
         startService(new Intent(context, WebService.class));
 
         currentFragment = new Status();
         getSupportFragmentManager().beginTransaction().replace(R.id.crossfade_content, currentFragment).commit();
         bottomNavigation(savedInstanceState);
         loadDrawer(savedInstanceState);
-        RegisterNetworkReceiver();
+
     }
 
+    public static Context getMainContext()
+    {
+        return getContext();
+    }
+
+    private void RegisterSocketDataReceiver() {
+        registerReceiver(dataReceiver, new IntentFilter("VEHICLE_ONLINE"));
+    }
+    private void UnregisterSocketDataReceiver() {
+        unregisterReceiver(dataReceiver);
+    }
     NetworkChangeReceiver networkChangeReceiver = new NetworkChangeReceiver(){
         @Override
         protected void onNetworkError() {
@@ -77,10 +87,14 @@ public class MainActivity extends BaseActivity {
     };
 
     private void RegisterNetworkReceiver() {
-
+        IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
         intentFilter.setPriority(100);
         registerReceiver(networkChangeReceiver,intentFilter);
+
+    }
+    private void UnegisterNetworkReceiver() {
+        unregisterReceiver(networkChangeReceiver);
 
     }
 
@@ -207,5 +221,11 @@ public class MainActivity extends BaseActivity {
         crossfadeContent = (FrameLayout) findViewById(R.id.crossfade_content);
         bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
         mainScreen = (CoordinatorLayout) findViewById(R.id.mainScreen);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        UnegisterNetworkReceiver();
     }
 }
