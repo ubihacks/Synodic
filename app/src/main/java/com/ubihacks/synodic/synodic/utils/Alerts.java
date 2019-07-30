@@ -32,7 +32,7 @@ public class Alerts extends BaseActivity {
         final SweetAlertDialog sweetAlertDialog =  new SweetAlertDialog(UIUpdateContext,
                 SweetAlertDialog.WARNING_TYPE);
         sweetAlertDialog.setTitleText("STATUS UPDATE");
-        sweetAlertDialog.setContentText("Driver status has been updated");
+        sweetAlertDialog.setContentText("Driver status updated");
         sweetAlertDialog.setCancelable(false);
         sweetAlertDialog.show();
     }

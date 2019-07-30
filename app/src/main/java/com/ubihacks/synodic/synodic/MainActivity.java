@@ -38,6 +38,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.ubihacks.synodic.synodic.MyApp.getContext;
+import static com.ubihacks.synodic.synodic.utils.CONSTANTS.INTENT_VEHICLE_MOVED;
+import static com.ubihacks.synodic.synodic.utils.CONSTANTS.INTENT_VEHICLE_OFFLINE;
+import static com.ubihacks.synodic.synodic.utils.CONSTANTS.INTENT_VEHICLE_ONLINE;
+import static com.ubihacks.synodic.synodic.utils.CONSTANTS.INTENT_VEHICLE_STOPPED;
 import static com.ubihacks.synodic.synodic.utils.CONSTANTS.KEY_LOGGED;
 import static com.ubihacks.synodic.synodic.utils.CONSTANTS.KEY_TOKEN;
 
@@ -57,6 +61,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         initView();
         RegisterNetworkReceiver();
+        RegisterSocketDataReceiver();
         startService(new Intent(context, WebService.class));
 
         currentFragment = new Status();
@@ -66,13 +71,30 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        RegisterNetworkReceiver();
+        RegisterSocketDataReceiver();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        UnegisterNetworkReceiver();
+        UnregisterSocketDataReceiver();
+    }
+
     public static Context getMainContext()
     {
         return getContext();
     }
 
     private void RegisterSocketDataReceiver() {
-        registerReceiver(dataReceiver, new IntentFilter("VEHICLE_ONLINE"));
+        registerReceiver(dataReceiver, new IntentFilter(INTENT_VEHICLE_MOVED));
+        registerReceiver(dataReceiver, new IntentFilter(INTENT_VEHICLE_STOPPED));
+        registerReceiver(dataReceiver, new IntentFilter(INTENT_VEHICLE_ONLINE));
+        registerReceiver(dataReceiver, new IntentFilter(INTENT_VEHICLE_OFFLINE));
     }
     private void UnregisterSocketDataReceiver() {
         unregisterReceiver(dataReceiver);

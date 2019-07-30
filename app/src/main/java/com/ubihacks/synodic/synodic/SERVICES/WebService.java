@@ -34,7 +34,7 @@ public class WebService extends Service {
             final String COOKIES = "COOKIES";
             String cookie = PreferenceManager.getDefaultSharedPreferences(MyApp.getContext().getApplicationContext()).getStringSet(COOKIES,null).toString().split(";")[0].substring(1);
             Log.w("TAG", "Cookie is " + cookie);
-            ws = factory.createSocket("ws://192.168.10.30:8082/api/socket");
+            ws = factory.createSocket("ws://testeld.gatsan.com/api/socket");
             ws.addHeader("Cookie", cookie);
             ws.addListener(new WEBSOCKET());
 

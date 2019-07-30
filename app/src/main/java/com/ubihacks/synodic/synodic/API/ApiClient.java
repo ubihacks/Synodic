@@ -18,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    private static final String API_BASE_URL = "http://192.168.10.30:8082/api/";
+    private static final String API_BASE_URL = "http://testeld.gatsan.com/api/";
     private static Retrofit retrofit = null;
 
 

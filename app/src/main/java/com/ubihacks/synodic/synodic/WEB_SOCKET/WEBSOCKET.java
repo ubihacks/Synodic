@@ -101,6 +101,7 @@ public class WEBSOCKET implements WebSocketListener {
     @Override
     public void onTextMessage(com.neovisionaries.ws.client.WebSocket websocket, String message) throws Exception {
         String messageType = message.split("\"")[1];
+        Log.w("TAG", messageType);
         switch (messageType)
         {
             case MESSAGE_TYPE_POSITION:

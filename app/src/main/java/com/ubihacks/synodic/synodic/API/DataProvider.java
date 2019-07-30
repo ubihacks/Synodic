@@ -10,7 +10,6 @@ import com.ubihacks.synodic.synodic.utils.DateUtils;
 import com.ubihacks.synodic.synodic.utils.actions;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -59,8 +58,15 @@ public class DataProvider {
             @Override
             public void onResponse(Call<List<DriverStatus>> call, Response<List<DriverStatus>> response) {
                 List<DriverStatus> statuses = response.body();
-                Log.w("DATE", "TO: " + statuses.size());
-                actions.setCurrentDriverStatus(statuses.get(0));
+                if(statuses.size() > 0) {
+                    actions.setCurrentDriverStatus(statuses.get(0));
+                }
+                else
+                {
+                    DriverStatus status = new DriverStatus();
+                    status.setDriverState("NO STATE");
+                    actions.setCurrentDriverStatus(status);
+                }
                 dataReceived.Success();
             }
 
