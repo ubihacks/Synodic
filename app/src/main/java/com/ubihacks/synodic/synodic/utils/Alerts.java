@@ -22,7 +22,27 @@ public class Alerts extends BaseActivity {
         final SweetAlertDialog sweetAlertDialog =  new SweetAlertDialog(UIUpdateContext,
                 SweetAlertDialog.WARNING_TYPE);
         sweetAlertDialog.setTitleText("STATUS CHANGE");
-        sweetAlertDialog.setContentText("Vehicle is stopped. Changing status to On-Duty");
+        sweetAlertDialog.setContentText("Vehicle is in motion. Changing status to Driving");
+        sweetAlertDialog.setCancelable(false);
+        sweetAlertDialog.show();
+    }
+
+    public static void statusUpdatedSuccess()
+    {
+        final SweetAlertDialog sweetAlertDialog =  new SweetAlertDialog(UIUpdateContext,
+                SweetAlertDialog.WARNING_TYPE);
+        sweetAlertDialog.setTitleText("STATUS UPDATE");
+        sweetAlertDialog.setContentText("Driver status has been updated");
+        sweetAlertDialog.setCancelable(false);
+        sweetAlertDialog.show();
+    }
+
+    public static void statusUpdatedFailed()
+    {
+        final SweetAlertDialog sweetAlertDialog =  new SweetAlertDialog(UIUpdateContext,
+                SweetAlertDialog.WARNING_TYPE);
+        sweetAlertDialog.setTitleText("STATUS UPDATE");
+        sweetAlertDialog.setContentText("Failed to update driver status");
         sweetAlertDialog.setCancelable(false);
         sweetAlertDialog.show();
     }

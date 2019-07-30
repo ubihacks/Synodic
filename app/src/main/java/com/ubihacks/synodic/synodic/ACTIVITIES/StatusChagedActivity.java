@@ -1,5 +1,6 @@
 package com.ubihacks.synodic.synodic.ACTIVITIES;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import com.ubihacks.synodic.synodic.API.Api;
 import com.ubihacks.synodic.synodic.MyApp;
+import com.ubihacks.synodic.synodic.utils.Alerts;
 import com.ubihacks.synodic.synodic.utils.actions;
 import com.ubihacks.synodic.synodic.R;
 
@@ -37,6 +39,8 @@ public class StatusChagedActivity extends BaseActivity implements View.OnClickLi
     TextView txtTime;
     TextView txtConnectionStatus;
 
+    private String selectedStatus = null;
+
 
 
     @Override
@@ -52,9 +56,9 @@ public class StatusChagedActivity extends BaseActivity implements View.OnClickLi
         driving.setOnClickListener(this);
         sleeper.setOnClickListener(this);
         locationFetch.setOnClickListener(this);
+        submit.setOnClickListener(this);
+        cancel.setOnClickListener(this);
 
-        onDuty.setOnClickListener(this);
-        onDuty.setOnClickListener(this);
 
         txtDriverStatus = (TextView) findViewById(R.id.txtDriverStatus);
         txtConnectionStatus = (TextView) findViewById(R.id.txtConnectionStatus);
@@ -85,21 +89,37 @@ public class StatusChagedActivity extends BaseActivity implements View.OnClickLi
 
     }
 
+    private void resetButtons()
+    {
+        onDuty.setBackground(getResources().getDrawable(R.drawable.button));
+        offDuty.setBackground(getResources().getDrawable(R.drawable.button));
+        driving.setBackground(getResources().getDrawable(R.drawable.button));
+        sleeper.setBackground(getResources().getDrawable(R.drawable.button));
+    }
+
     @Override
     public void onClick(View v) {
         this.UIUpdateContext = this;
         switch (v.getId()) {
             case R.id.btnDriving:
-                actions.updateDriverStatus(MyApp.dataProvider.selectedDevice.getId(), STATUS_DRIVING, driverComment.getText().toString());
+                selectedStatus = STATUS_DRIVING;
+                resetButtons();
+                driving.setBackgroundColor(Color.BLUE);
                 break;
             case R.id.btnOffDuty:
-                actions.updateDriverStatus(MyApp.dataProvider.selectedDevice.getId(), STATUS_OFF_DUTY, driverComment.getText().toString());
+                selectedStatus = STATUS_OFF_DUTY;
+                resetButtons();
+                offDuty.setBackgroundColor(Color.BLUE);
                 break;
             case R.id.btnOnDuty:
-                actions.updateDriverStatus(MyApp.dataProvider.selectedDevice.getId(), STATUS_ON_DUTY, driverComment.getText().toString());
+                selectedStatus = STATUS_ON_DUTY;
+                resetButtons();
+                onDuty.setBackgroundColor(Color.BLUE);
                 break;
             case R.id.btnSleep:
-                actions.updateDriverStatus(MyApp.dataProvider.selectedDevice.getId(), STATUS_SLEEP, driverComment.getText().toString());
+                selectedStatus = STATUS_SLEEP;
+                resetButtons();
+                sleeper.setBackgroundColor(Color.BLUE);
                 break;
             case R.id.btnLocation:
                 fetchGPSLocation();
@@ -116,9 +136,19 @@ public class StatusChagedActivity extends BaseActivity implements View.OnClickLi
 
 
     private void submitForm() {
+        int deviceId = MyApp.dataProvider.selectedDevice.getId();
+        if(actions.updateDriverStatus(deviceId, selectedStatus, driverComment.getText().toString()) != null)
+        {
+            Alerts.statusUpdatedSuccess();
+        }
+        else
+        {
+            Alerts.statusUpdatedFailed();
+        }
     }
 
     private void cancelForm() {
+        this.finish();
     }
 
 

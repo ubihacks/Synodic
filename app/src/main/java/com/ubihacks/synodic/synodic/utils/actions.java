@@ -115,6 +115,7 @@ public class actions extends BaseActivity {
 
     public static DriverStatus updateDriverStatus(int deviceId, String driverStatus, final String driverComment)
     {
+        statusResponse = null;
         DriverStatus st = new DriverStatus();
         st.setDriverState(driverStatus);
         st.setDeviceId(deviceId);
@@ -132,7 +133,7 @@ public class actions extends BaseActivity {
             public void onFailure(Call<DriverStatus> call, Throwable t) {
             }
         });
-        return null;
+        return statusResponse;
     }
 
     public static void fetchGPSLocation()
