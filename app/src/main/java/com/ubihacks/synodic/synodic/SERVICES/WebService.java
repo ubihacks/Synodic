@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class WebService extends Service {
 
-    private WebSocket ws = null;
+    private static WebSocket ws = null;
 
     @Nullable
     @Override
@@ -27,13 +27,11 @@ public class WebService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
-        Log.w("SERVICE", "STARTED");
         WebSocketFactory factory = new WebSocketFactory().setConnectionTimeout(5000);
 
         try {
             final String COOKIES = "COOKIES";
             String cookie = PreferenceManager.getDefaultSharedPreferences(MyApp.getContext().getApplicationContext()).getStringSet(COOKIES,null).toString().split(";")[0].substring(1);
-            Log.w("TAG", "Cookie is " + cookie);
             ws = factory.createSocket("ws://testeld.gatsan.com/api/socket");
             ws.addHeader("Cookie", cookie);
             ws.addListener(new WEBSOCKET());
@@ -48,7 +46,7 @@ public class WebService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        Log.w("INTENT", "RESTART");
         Intent restartService = new Intent("RestartService");
         sendBroadcast(restartService);
     }

@@ -32,6 +32,8 @@ import com.ubihacks.synodic.synodic.RECEIVERS.NetworkChangeReceiver;
 import com.ubihacks.synodic.synodic.RECEIVERS.SocketDataReceiver;
 import com.ubihacks.synodic.synodic.SERVICES.WebService;
 import com.ubihacks.synodic.synodic.WEB_SOCKET.WEBSOCKET;
+import com.ubihacks.synodic.synodic.utils.Alerts;
+import com.ubihacks.synodic.synodic.utils.actions;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,15 +56,18 @@ public class MainActivity extends BaseActivity {
     private AHBottomNavigation bottomNavigation;
     private CoordinatorLayout mainScreen;
     SocketDataReceiver dataReceiver = new SocketDataReceiver();
+    Intent serviceIntent = null;
+    public static boolean UIUpdateReady = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        serviceIntent = new Intent(context, WebService.class);
         initView();
         RegisterNetworkReceiver();
         RegisterSocketDataReceiver();
-        startService(new Intent(context, WebService.class));
+        startService(serviceIntent);
 
         currentFragment = new Status();
         getSupportFragmentManager().beginTransaction().replace(R.id.crossfade_content, currentFragment).commit();
@@ -79,10 +84,12 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStop() {
+        Alerts.closeAlert();
+        //stopService(serviceIntent);
         UnegisterNetworkReceiver();
         UnregisterSocketDataReceiver();
+        super.onStop();
     }
 
     public static Context getMainContext()
@@ -117,7 +124,6 @@ public class MainActivity extends BaseActivity {
     }
     private void UnegisterNetworkReceiver() {
         unregisterReceiver(networkChangeReceiver);
-
     }
 
 
@@ -243,11 +249,5 @@ public class MainActivity extends BaseActivity {
         crossfadeContent = (FrameLayout) findViewById(R.id.crossfade_content);
         bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
         mainScreen = (CoordinatorLayout) findViewById(R.id.mainScreen);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        UnegisterNetworkReceiver();
     }
 }

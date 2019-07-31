@@ -144,8 +144,11 @@ public class actions extends BaseActivity {
     public static void calculateHOS()
     {
         timeDriving = timeOffDuty = timeOnDuty = timeSleeping = 0;
+
+        List<DriverStatus> statuses = actions.getCurrentDayStatuses();
+        Log.w("STATUS", "SIZE " + statuses.size());
         int iterator = 1;
-        for (DriverStatus st: actions.getCurrentDayStatuses()) {
+        for (DriverStatus st: statuses) {
             Log.w("STATUS", "TYPE: " + st.getDriverState() + "STATUS TIME: " + st.getServerTime());
             if( iterator < actions.getCurrentDayStatuses().size()) {
                 if (st.getDriverState().equals(STATUS_DRIVING)) {

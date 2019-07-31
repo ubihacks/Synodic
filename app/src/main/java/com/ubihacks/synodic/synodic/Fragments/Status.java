@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.scichart.charting.visuals.axes.IAxis;
 import com.scichart.drawing.utility.ColorUtil;
 import com.scichart.extensions.builders.SciChartBuilder;
 import com.ubihacks.synodic.synodic.ACTIVITIES.StatusChagedActivity;
+import com.ubihacks.synodic.synodic.MainActivity;
 import com.ubihacks.synodic.synodic.R;
 import com.ubihacks.synodic.synodic.RECEIVERS.SocketDataReceiver;
 import com.ubihacks.synodic.synodic.utils.actions;
@@ -58,6 +60,7 @@ public class Status extends BaseFragment implements View.OnClickListener {
 
         View view = inflater.inflate(R.layout.fragment_status, container, false);
         UIUpdateContext = this.getContext();
+        MainActivity.UIUpdateReady = true;
 
 
         initView(view);
@@ -164,9 +167,14 @@ public class Status extends BaseFragment implements View.OnClickListener {
     @Override
     public void onStart(){
         super.onStart();
-        UIUpdateContext = this.getContext();
         actions.calculateHOS();
         initDisplayParameters();
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MainActivity.UIUpdateReady = false;
+        UIUpdateContext = null;
     }
 }

@@ -100,6 +100,7 @@ public class DataProvider {
 
             @Override
             public void onFailure(Call<List<DriverStatus>> call, Throwable t) {
+                Log.w("TAG", "FAILED");
                 setCurrentDayStatuses(null);
             }
         });

@@ -111,6 +111,7 @@ public class WEBSOCKET implements WebSocketListener {
                 JsonElement mJson =  parser.parse(positionArray.get(0).toString());
                 Position position = gson.fromJson(mJson, Position.class);
                 setLatestPosition(position);
+                Log.w("TAG", position.getSpeed() + " is speed");
                 generateVehicleMotionBroadcast(position);
             }
             break;
@@ -138,7 +139,7 @@ public class WEBSOCKET implements WebSocketListener {
     }
 
     private void generateVehicleMotionBroadcast(Position position) {
-        if(position.getAttributes().getMotion())
+        if(position.getSpeed() > -1)
         {
             context.sendBroadcast(new Intent(INTENT_VEHICLE_MOVED));
         }

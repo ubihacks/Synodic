@@ -2,12 +2,14 @@ package com.ubihacks.synodic.synodic.ACTIVITIES;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ubihacks.synodic.synodic.API.Api;
+import com.ubihacks.synodic.synodic.MainActivity;
 import com.ubihacks.synodic.synodic.MyApp;
 import com.ubihacks.synodic.synodic.utils.Alerts;
 import com.ubihacks.synodic.synodic.utils.actions;
@@ -42,7 +44,6 @@ public class StatusChagedActivity extends BaseActivity implements View.OnClickLi
     private String selectedStatus = null;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +51,8 @@ public class StatusChagedActivity extends BaseActivity implements View.OnClickLi
         init();
 
         api = MyApp.getApi();
+        UIUpdateContext = this;
+        MainActivity.UIUpdateReady = true;
 
         onDuty.setOnClickListener(this);
         offDuty.setOnClickListener(this);
@@ -89,8 +92,7 @@ public class StatusChagedActivity extends BaseActivity implements View.OnClickLi
 
     }
 
-    private void resetButtons()
-    {
+    private void resetButtons() {
         onDuty.setBackground(getResources().getDrawable(R.drawable.button));
         offDuty.setBackground(getResources().getDrawable(R.drawable.button));
         driving.setBackground(getResources().getDrawable(R.drawable.button));
@@ -99,7 +101,6 @@ public class StatusChagedActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        this.UIUpdateContext = this;
         switch (v.getId()) {
             case R.id.btnDriving:
                 selectedStatus = STATUS_DRIVING;
@@ -134,22 +135,23 @@ public class StatusChagedActivity extends BaseActivity implements View.OnClickLi
     }
 
 
-
     private void submitForm() {
         int deviceId = MyApp.dataProvider.selectedDevice.getId();
-        if(actions.updateDriverStatus(deviceId, selectedStatus, driverComment.getText().toString()) != null)
-        {
-            Alerts.statusUpdatedSuccess();
-        }
-        else
-        {
-            Alerts.statusUpdatedFailed();
-        }
+        actions.updateDriverStatus(deviceId, selectedStatus, driverComment.getText().toString());
+        Alerts.statusUpdatedSuccess();
+        this.finish();
+
     }
 
     private void cancelForm() {
         this.finish();
     }
 
-
+    @Override
+    protected void onDestroy() {
+        Log.w("LOG", "STATUS CHANGE DESTROYED");
+        UIUpdateContext = null;
+        MainActivity.UIUpdateReady = false;
+        super.onDestroy();
+    }
 }
